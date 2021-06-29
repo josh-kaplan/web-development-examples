@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sample App</title>
+        <style>
+            *, table * {
+                font-family: 'Courier New', monospace;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Random Data:</h1>
+        <table>
+            {% for dp in data %}
+            <tr><td>Sensor {{loop.index}}: </td><td>{{dp}}</td></tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

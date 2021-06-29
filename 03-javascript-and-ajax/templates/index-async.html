@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Asynchronous Example</title>
+        <style>
+            *, table * {
+                font-family: 'Courier New', monospace;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+                crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <h1>Random Data:</h1>
+        <table>
+            {% for dp in data %}
+            <tr>
+                <td><b>Sensor {{loop.index}}: </b></td>
+                <td id="dp-{{loop.index}}">{{dp}}</td></tr>
+            {% endfor %}
+        </table>
+        <script type="text/javascript">
+            // This function makes an AJAX call to get telemetry data
+            function getTelemetry() {
+                $.ajax({
+                    url: "/data", 
+                    success: handleTelemetryResult
+                });
+            }
+
+            // This function takes the resulting telemetry data and updates the HTML
+            function handleTelemetryResult(result) {
+                for (let i = 1; i <= result.length; i++) {
+                    $(`#dp-${i}`).html(result[i-1]);
+                }
+            }
+
+            // Run the getTelemetry function every 500 ms
+            setInterval(getTelemetry, 500);
+        </script>
+    </body>
+</html>
